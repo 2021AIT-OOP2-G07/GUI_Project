@@ -1,0 +1,39 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    grid-gap: 10px;
+}
+
+.image {
+    width: 200px;
+    height: 100px;
+}
+
+.button {
+    padding: 10px 30px;
+}
+
+.box1 {
+    text-align: center;
+}
+
+.box2 {
+    text-align: center;
+}
+
+.box3 {
+    text-align: center;
+}
+
+.box4 {
+    text-align: center;
+}
+
+.box5 {
+    text-align: center;
+}
+
+.box6 {
+    text-align: center;
+}
