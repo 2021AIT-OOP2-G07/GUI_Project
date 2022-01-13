@@ -5,6 +5,10 @@
     grid-gap: 10px;
 }
 
+h3 {
+    line-height:0.5pc
+}
+
 .image {
     width: 200px;
     height: 100px;

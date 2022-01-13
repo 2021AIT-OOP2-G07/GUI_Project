@@ -8,9 +8,12 @@
     <body>
         <h1>結果発表</h1>
         <div class="wrapper">
-            <div class="box1"><img class="image" src="dummy.jpg"></div>
-            <div class="box2"><img class="image" src="dummy.jpg"></div>
-            <div class="box3"><h3>スコア〇〇点<br>ランキング〇位</h3></div>
+            <div class="box1"><img class="image" id="img_model"></div>
+            <div class="box2"><img class="image" id="img_result"></div>
+            <div class="box3">
+                <h3 id="score">スコア〇〇点</h3>
+                <h3 id="ranking">ランキング〇位</h3>
+            </div>
             <div class="box4">手本</div>
             <div class="box5">結果</div>
             <div class="box6">
@@ -19,5 +22,19 @@
                 <input type="button" class="button" value="終わる">
             </div>
         </div>
+
+        <script>
+            var image = document.getElementById('img_model');
+            image.src = "./dummy.jpg"
+
+            image = document.getElementById('img_result');
+            image.src = "./dummy.jpg"
+
+            var text = document.getElementById('score1');
+            text.innerText = "スコア" + "〇〇" + "点";
+
+            text = document.getElementById('ranking');
+            text.innerText = "ランキング" + "〇" + "位";
+        </script>
     </body>
 </html>
