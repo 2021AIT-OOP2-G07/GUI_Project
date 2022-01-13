@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+		<title>結果発表</title>
+        <link rel="stylesheet" type="text/css" href="../static/rResult.css">
+    </head>
+    <body>
+        <h1>結果発表</h1>
+        <div class="wrapper">
+            <div class="box1">手本</div>
+            <div class="box2">結果</div>
+            <div class="box3">
+                <h3 id="score1"></h3>
+                <h3 id="score2"></h3>
+                <h3 id="score3"></h3>
+                <h3 id="score4"></h3>
+                <h3 id="ranking"></h3>
+            </div>
+            <div class="box4">
+                <h3 class="left">1.</h3>
+                <img class="image" id="img_model1"><br><br>
+                <h3 class="left">2.</h3>
+                <img class="image" id="img_model2"><br><br>
+                <h3 class="left">3.</h3>
+                <img class="image" id="img_model3"><br><br>
+            </div>
+            <div class="box5">
+                <img class="image" id="img_result1"><br><br>
+                <img class="image" id="img_result2"><br><br>
+                <img class="image" id="img_result3"><br><br>
+            </div>
+            <div class="box6">
+                <br><br><br>
+                <input type="button" class="button" value="ランキング">
+                <input type="button" class="button" value="再挑戦">
+                <input type="button" class="button" value="終わる">
+            </div>
+        </div>
+
+        <script>
+            var image = document.getElementById('img_model1');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_model2');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_model3');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_result1');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_result2');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_result3');
+            image.src = "../static/dummy.jpg"
+
+            text = document.getElementById('score1');
+            text.innerText = "スコア　1." + "〇〇" + "点";
+
+            text = document.getElementById('score2');
+            text.innerText = "　　　　2." + "〇〇" + "点";
+
+            text = document.getElementById('score3');
+            text.innerText = "　　　　3." + "〇〇" + "点";
+
+            text = document.getElementById('score4');
+            text.innerText = "　　　総合." + "〇〇" + "点";
+
+            text = document.getElementById('ranking');
+            text.innerText = "ランキング" + "〇" + "位";
+        </script>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+table th {
+    padding: 10px;
+}
+  
+table td {
+    padding: 3px 10px;
+}
+
+input {
+    padding: 10px 30px;
+}
