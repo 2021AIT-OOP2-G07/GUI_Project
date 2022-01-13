@@ -2,13 +2,13 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-		<title>結果発表</title>
+		    <title>ランキング</title>
         <link rel="stylesheet" type="text/css" href="ranking.css">
     </head>
     <body>
         <input type="button" value="戻る"><h1>ランキング</h1>
         <h3>練習モード</h3>
-        <table id='single' border='1'>
+        <table id="single" border="1">
             <tr>
               <th>　　</th>
               <th>名前</th>
@@ -32,7 +32,7 @@
         </table>
 
         <h3>ランダムモード</h3>
-        <table id='random' border='1'>
+        <table id="random" border="1">
             <tr>
               <th>　　</th>
               <th>名前</th>
@@ -54,5 +54,85 @@
                 <th>00000</th>
               </tr>
         </table>
+
+        <script>
+          //シングルモードのスコア表示
+          var table = document.getElementById('single');
+
+          table.innerHTML = '';//表の要素を全消去
+
+          let tr = document.createElement('tr');
+          // 順位
+          let th = document.createElement('th');
+          th.innerText = '　　';
+          tr.appendChild(th);
+          // 名前
+          th = document.createElement('th');
+          th.innerText = '名前';
+          tr.appendChild(th);
+          // スコア
+          th = document.createElement('th');
+          th.innerText = 'スコア';
+          tr.appendChild(th);
+
+          table.appendChild(tr);
+          
+          for (var step = 0; step < 5; step++) {
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = step+1;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          }
+
+          //ランダムモードのスコア表示
+          var table = document.getElementById('random');
+
+          table.innerHTML = '';//表の要素を全消去
+
+          tr = document.createElement('tr');
+          // 順位
+          th = document.createElement('th');
+          th.innerText = '　　';
+          tr.appendChild(th);
+          // 名前
+          th = document.createElement('th');
+          th.innerText = '名前';
+          tr.appendChild(th);
+          // スコア
+          th = document.createElement('th');
+          th.innerText = 'スコア';
+          tr.appendChild(th);
+
+          table.appendChild(tr);
+
+          for (var step = 0; step < 5; step++) {
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = step+1;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          }
+        </script>
     </body>
 </html>
