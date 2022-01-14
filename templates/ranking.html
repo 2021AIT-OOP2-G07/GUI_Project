@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+		    <title>ランキング</title>
+        <link rel="stylesheet" type="text/css" href="../static/ranking.css">
+    </head>
+    <body>
+        <input type="button" value="戻る"><h1>ランキング</h1>
+        <h3>練習モード</h3>
+        <table id="single" border="1">
+        </table>
+
+        <h3>ランダムモード</h3>
+        <table id="random" border="1">
+        </table>
+
+        <script>
+          //シングルモードのスコア表示
+          var table = document.getElementById('single');
+          
+          let tr = document.createElement('tr');
+          // 順位
+          let th = document.createElement('th');
+          th.innerText = '　　';
+          tr.appendChild(th);
+          // 名前
+          th = document.createElement('th');
+          th.innerText = '名前';
+          tr.appendChild(th);
+          // スコア
+          th = document.createElement('th');
+          th.innerText = 'スコア';
+          tr.appendChild(th);
+
+          table.appendChild(tr);
+          
+          for (var step = 0; step < 5; step++) {
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = step+1;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          }
+
+          //ランダムモードのスコア表示
+          var table = document.getElementById('random');
+
+          tr = document.createElement('tr');
+          // 順位
+          th = document.createElement('th');
+          th.innerText = '　　';
+          tr.appendChild(th);
+          // 名前
+          th = document.createElement('th');
+          th.innerText = '名前';
+          tr.appendChild(th);
+          // スコア
+          th = document.createElement('th');
+          th.innerText = 'スコア';
+          tr.appendChild(th);
+
+          table.appendChild(tr);
+
+          for (var step = 0; step < 5; step++) {
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = step+1;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = 'dummy';
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          }
+        </script>
+    </body>
+</html>
