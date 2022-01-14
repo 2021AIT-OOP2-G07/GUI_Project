@@ -1,11 +1,9 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, request, render_template
 from datetime import datetime
-import datetime
-import random  # ランダムデータ作成のためのライブラリ
+from ScoreCalculator import ScoreCalculator
 
 app = Flask(__name__)
-
-
 # 1. ゲームトップ
 
 
@@ -23,7 +21,7 @@ def Select():
 
 @app.route('/practice')
 def Practice():
-    return render_template('practice')
+    return render_template('practice.html')
 
 
 @app.route('/random')
@@ -36,9 +34,19 @@ def Dictionary():
     return render_template('dictionary.html')
 
 
-@app.route('/result')
-def Result():
-    return render_template('result.html')
+@app.route('/pResult')
+def ResultP():
+    SC = ScoreCalculator()
+    ret = SC.getScore("a", "b")
+    score = ret['score']['sum']
+    return render_template('ran-count.html',
+                           score
+                           )
+
+
+@app.route('/rResult')
+def ResultR():
+    return render_template('rResult.html')
 
 
 @app.route('/ranking')
@@ -46,6 +54,5 @@ def Ranking():
     return render_template('ranking.html')
 
 
-# 3.ヨガ図鑑(各ポーズの説明画面)
 if __name__ == '__main__':
     app.run()
