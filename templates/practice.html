@@ -1,0 +1,39 @@
+<!--ポーズ選択画面-->
+<!DOCTYPE html>
+<html lang = "ja">
+<head>
+    <meta charset="utf-8">
+    <title>practice</title>
+    <link rel="stylesheet" type="text/css" href="practice.css">
+</head>
+<body>
+    <button type="submit">戻る</button>
+    
+    /*タイトル*/
+    <h1 id="練習モード">練習モード</h1>
+    
+    <h2 id="ポーズを選ぼう">ポーズを選ぼう</h2>
+
+    <!--ここに、ヨガ図鑑のコピペして説明文を省いた状態のものをおく-->
+    <!--画像クリックしても飛べるようにしたいけど、-->
+    <table>
+        <tr>
+          <td><a href="{{url_for('static', filename='3.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='3.jpg') }}" alt="" class="img" ></a>
+          </td>
+          <td><a href="{{url_for('static', filename='4-1.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='4-1.jpg') }}" alt="" class="img"></a> 
+          </td>
+          <td><a href="{{url_for('static', filename='4-2.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='4-2.jpg') }}" alt="" class="img"></a> 
+          </td>
+          <td><a href="{{url_for('static', filename='5-1.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='5-1.jpg') }}" alt="" class="img"></a> 
+          </td>
+        </div>
+        </tr>
+        <tr>
+            <!--ここに、選択ボタン？つける-->
+
+        </tr>
+      </table>
+
+    <button type="submit">挑戦!</button>
+
+    </body>
