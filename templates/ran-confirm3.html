@@ -1,18 +1,23 @@
 <!--ランダムに選ばれた写真の3枚目-->
-<!--確認画面-->
+<!--3枚目確認画面-->
 
 <!DOCTYPE html>
 <html lang = "ja">
 <head>
     <meta charset="utf-8">
     <title>ran-confirm3</title>
-    <link rel="stylesheet" type="text/css" href="../static/ran-confirm.css">
+    <link rel="stylesheet" type="text/css" href="../static/confirm.css">
 </head>
 <body>
+<!--タイトル-->
+<h1>3枚目　OK？</h1>
+<!--撮影した写真を表示させる-->
+<img src="../static/test1.jpg">
 <!--やり直しボタンを押したらran-count3.htmlへ戻る-->
-<button type="submit" formaction="../templates/ran-count3.html">やり直し</button>
+<button id="button" type="submit" formaction="../templates/ran-count3.html">やり直し</button>
 
  <!-- クリックしたらrResult.htmlへ飛ぶように-->
- <button type="submit" formaction="../templates/rResult.html">OK</button>
+ <button id ="button" type="submit" formaction="../templates/rResult.html">OK</button>
 
 </body>
+</html>
