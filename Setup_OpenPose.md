@@ -1,4 +1,4 @@
-リポジトリ
+OpenPoseリポジトリ
 https://github.com/CMU-Perceptual-Computing-Lab/openpose
 
 インストール手順
