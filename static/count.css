@@ -1,0 +1,25 @@
+#title{
+    text-align: center;
+}
+
+/*イラナイカモ???*/
+#start{
+    text-decoration: none;
+    display: block;
+    background: gray;
+    color: #fff;
+    height: 40px;
+    border-radius: 20px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+    width: 300px;
+    text-align: center;
+}
+
+#timer{
+    font-size: 250px;
+    text-align: center;
+}
