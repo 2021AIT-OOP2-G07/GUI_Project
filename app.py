@@ -58,6 +58,11 @@ def P_cnf():
 
 
 @app.route('/selct/practice/pResult', methods=["POST"])
+# targetImage:比較対象の画像
+# baseImage:比較元の画像
+# name:使用者の名前
+# score：スコア
+# ranking：このスコアのランキング
 def ResultP():
     targetImage = request.form.get("targetpng", None)
     baseImage = request.form.get("basepng", None)
@@ -78,7 +83,7 @@ def ResultP():
 # ランダムモードリザルト画面
 
 
-@app.route('/rResult')
+@app.route('/selct/practice/rResult')
 def ResultR():
     return render_template('rResult.html')
 
