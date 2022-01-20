@@ -1,0 +1,15 @@
+table th {
+    padding: 10px;
+}
+  
+table td {
+    padding: 3px 10px;
+}
+
+table {
+    background-color:cornsilk;
+}
+
+input {
+    padding: 10px 30px;
+}
