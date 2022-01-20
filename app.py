@@ -17,21 +17,21 @@ def Home():
 # 2.名前入力・モード選択画面(指定1枚orランダム3枚)
 
 
-@app.route('/selct')
+@app.route('/select')
 def Select():
     return render_template('select.html')
 
 # 練習モードトップ画面
 
 
-@app.route('/selct/practice', methods=["POST"])
+@app.route('/select/practice', methods=["POST"])
 def Practice():
     return render_template('practice.html')
 
 # ランダムモードトップ画面
 
 
-@app.route('/selct/random', methods=["POST"])
+@app.route('/select/random', methods=["POST"])
 def Random():
     return render_template('random.html')
 
@@ -52,12 +52,12 @@ def testD():
 # 練習モードリアルと画面
 
 
-@app.route('/selct/practice/confirm', methods=["POST"])
+@app.route('/select/practice/confirm', methods=["POST"])
 def P_cnf():
     return render_template('prac-confirm.html')
 
 
-@app.route('/selct/practice/pResult', methods=["POST"])
+@app.route('/select/practice/pResult', methods=["POST"])
 # targetImage:比較対象の画像
 # baseImage:比較元の画像
 # name:使用者の名前
