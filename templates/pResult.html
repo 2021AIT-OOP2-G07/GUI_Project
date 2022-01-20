@@ -24,17 +24,21 @@
         </div>
 
         <script>
+            var img_model_souce = "../static/dummy.jpg";
             var image = document.getElementById('img_model');
-            image.src = "../static/dummy.jpg"
+            image.src = img_model_souce;
 
+            var img_result_souce = "../static/dummy.jpg";
             image = document.getElementById('img_result');
-            image.src = "../static/dummy.jpg"
+            image.src = img_result_souce;
 
+            var score = 30;
             var text = document.getElementById('score');
-            text.innerText = "スコア" + "〇〇" + "点";
+            text.innerText = "スコア " + score + "点";
 
+            var ranking = 3;
             text = document.getElementById('ranking');
-            text.innerText = "ランキング" + "〇" + "位";
+            text.innerText = "ランキング " + ranking + "位";
         </script>
     </body>
 </html>
