@@ -4,12 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>practice</title>
-    <link rel="stylesheet" type="text/css" href="practice.css">
+    <link rel="stylesheet" type="text/css" href="../static/practice.css">
 </head>
 <body>
+  <!--
     <button type="submit">戻る</button>
-    
-    /*タイトル*/
+  -->
+  <ol>
+    <button><a href="../templates/home.html">戻る</a></button>
+  </ol>  
+    <!--タイトル-->
     <h1 id="練習モード">練習モード</h1>
     
     <h2 id="ポーズを選ぼう">ポーズを選ぼう</h2>
@@ -18,22 +22,27 @@
     <!--画像クリックしても飛べるようにしたいけど、-->
     <table>
         <tr>
-          <td><a href="{{url_for('static', filename='3.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='3.jpg') }}" alt="" class="img" ></a>
-          </td>
-          <td><a href="{{url_for('static', filename='4-1.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='4-1.jpg') }}" alt="" class="img"></a> 
-          </td>
-          <td><a href="{{url_for('static', filename='4-2.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='4-2.jpg') }}" alt="" class="img"></a> 
-          </td>
-          <td><a href="{{url_for('static', filename='5-1.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='5-1.jpg') }}" alt="" class="img"></a> 
-          </td>
-        </div>
-        </tr>
+          <td><img src="../static/test1.jpg" alt="cat" title="cat1" id="photo" width="200" height="150"></td>
+          <td><img src="../static/test2.jpg" alt="cat" title="cat2" id="photo" width="200" height="150"></td>
+          <td><img src="../static/test3.jpg" alt="cat" title="cat3" id="photo" width="200" height="150"></td></tr>
+          <tr><td><img src="../static/test4.jpg" alt="cat" title="cat4" id="photo" width="200" height="150"></td>
+          <td><img src="../static/test5.jpg" alt="cat" title="cat5" id="photo" width="200" height="150"></td>
+          <td><img src="../static/test6.jpg" alt="cat" title="cat6" id="photo" width="200" height="150"></td>
+          </tr>
         <tr>
             <!--ここに、選択ボタン？つける-->
-
+            <td><button>a</button></td>
+            <td><button>a</button></td>
+            <td><button>a</button></td>
+            <tr><td><button>a</button></td>
+            <td><button>a</button></td>
+            <td><button>a</button></td>
+          </tr>
         </tr>
       </table>
 
-    <button type="submit">挑戦!</button>
-
+      <ol>
+        <button><a href="../templates/prac-count.html">挑戦!</a></button>
+      </ol>  
+      
     </body>
