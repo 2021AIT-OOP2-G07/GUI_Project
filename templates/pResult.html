@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>結果発表</title>
+        <link rel="stylesheet" type="text/css" href="../static/pResult.css">
+    </head>
+    <body>
+        <h1>結果発表</h1>
+        <div class="wrapper">
+            <div class="box1"><img class="image" id="img_model"></div>
+            <div class="box2"><img class="image" id="img_result"></div>
+            <div class="box3">
+                <h3 id="score"></h3>
+                <h3 id="ranking"></h3>
+            </div>
+            <div class="box4"><br><h4>手本</h4></div>
+            <div class="box5"><br><h4>結果</h4></div>
+            <div class="box6">
+                <input type="button" class="button" value="ランキング" onclick="location.href='./ranking'">
+                <input type="button" class="button" value="再挑戦" onclick="location.href='./practice'">
+                <input type="button" class="button" value="終わる" onclick="location.href='./home'">
+            </div>
+        </div>
+
+        <script>
+            var image = document.getElementById('img_model');
+            image.src = "../static/dummy.jpg"
+
+            image = document.getElementById('img_result');
+            image.src = "../static/dummy.jpg"
+
+            var text = document.getElementById('score');
+            text.innerText = "スコア" + "〇〇" + "点";
+
+            text = document.getElementById('ranking');
+            text.innerText = "ランキング" + "〇" + "位";
+        </script>
+    </body>
+</html>
