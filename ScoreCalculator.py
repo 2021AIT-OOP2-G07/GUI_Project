@@ -2,16 +2,27 @@ import cv2
 import sys
 import numpy as np
 from numpy import linalg as LA
+import os
 
 class ScoreCalculator:
     # コンストラクタ 比較対象・比較元の画像のディレクトリのパスを設定 ライブラリのインポート
     # 引数
-    ## targetImagePath  比較対象の画像が保存されているディレクトリのパス    デフォルトはクラスファイルと同じディレクトリ
-    ## baseImagePath    比較元の画像が保存されているディレクトリのパス      デフォルトはクラスファイルと同じディレクトリ
+    ## targetImageDirPath  比較対象の画像が保存されているディレクトリのパス    デフォルトはクラスファイルと同じディレクトリ
+    ## baseImageDirPath    比較元の画像が保存されているディレクトリのパス      デフォルトはクラスファイルと同じディレクトリ
     # 戻り値 None
-    def __init__(self, targetImagePath = '', baseImagePath = ''):
-        self.targetImagePath = targetImagePath
-        self.baseImagePath = baseImagePath
+    def __init__(self, targetImageDirPath = '', baseImageDirPath = ''):
+        self.targetImageDirPath = targetImageDirPath
+        self.baseImageDirPath = baseImageDirPath
+
+        # 正しいパスが指定されたか確認
+        ## 比較対象のディレクトリを確認
+        if self.targetImageDirPath and not os.path.isdir(self.targetImageDirPath):
+            print('比較対象のディレクトリが存在しません')
+            raise ValueError('targetImageDirPath does not exist: targetImageDirPath is ' + str(self.targetImageDirPath))
+        ## 比較元のディレクトリを確認
+        if self.baseImageDirPath and not os.path.isdir(self.baseImageDirPath):
+            print('比較元のディレクトリが存在しません')
+            raise ValueError('baseImageDirPath does not exist: baseImageDirPath is ' + str(self.baseImageDirPath))
 
         # OpenPoseのインポート
         try:
@@ -21,27 +32,72 @@ class ScoreCalculator:
             self.op = op
         except ImportError as e:
             print('Error: OpenPose library could not be found.')
+            raise e
 
-
-    # 未完成    (正しい引数，正しい画像を指定すれば動きます)
     # スコアを返すメソッド
     # 引数
-    ## targetImageName  比較対象の画像のファイル名  self.targetImagePathが示すディレクトリに配置されている
-    ## baseImageName    比較元の画像のファイル名    self.baseImagePathが示すディレクトリに配置されている
+    ## targetImageName  比較対象の画像のファイル名  self.targetImageDirPathが示すディレクトリに配置されている
+    ## baseImageName    比較元の画像のファイル名    self.baseImageDirPathが示すディレクトリに配置されている
     # 戻り値
-    ## このメソッド内の変数retを確認してください
+    ## dict型 詳細はこのファイルの一番下のデバッグコードをみてください
     def getScore(self, targetImageName, baseImageName):
-        # スコアを計算する処理
+        # 戻り値を定義
+        ret = dict()
+
+        # 画像のファイルパスを取り出す
+        targetPath = self.targetImageDirPath + targetImageName
+        basePath = self.baseImageDirPath + baseImageName
+
+        # ファイルが存在しているか確認
+        if not os.path.isfile(targetPath):
+            print('比較対象のファイルが存在しません')
+            raise ValueError('targetImage does not exist: targetPath is ' + str(targetPath))
+        if not os.path.isfile(targetPath):
+            print('比較元のファイルが存在しません')
+            raise ValueError('baseImageDirPath does not exist: basePath is ' + str(basePath))
+
+        # ファイルが画像か確認(拡張子のみで判断)
+        root, targetExtention = os.path.splitext(targetPath)
+        root, baseExtention = os.path.splitext(targetPath)
+        approvedExtention = ['.jpg', '.JPG', '.png', '.PNG', '.bmp', '.BMP']
+
+        if not targetExtention in approvedExtention:
+            print('比較対象のファイルの拡張子が許可されていません ')
+            raise ValueError('targetExtention is not approved: targetExtention is ' + str(targetExtention))
+        if not baseExtention in approvedExtention:
+            print('比較元のファイルの拡張子が許可されていません ')
+            raise ValueError('baseExtention is not approved: baseExtention is ' + str(baseExtention))
 
         # 関節の位置をOpenPoseで推定
-        targetDatum = self.getDatum(self.targetImagePath + targetImageName)
-        baseDatum = self.getDatum(self.baseImagePath + baseImageName)
+        targetDatum = self.getDatum(targetPath)
+        baseDatum = self.getDatum(basePath)
+
+        # 正常に骨格推定ができたか確認
+        targetErrors = self.checkDatum(targetDatum)
+        baseErrors = self.checkDatum(baseDatum)
+
+        # 比較対象の画像にエラーがあった場合
+        if targetErrors is not None:
+            # 戻り値に比較対象の画像のエラーを追加
+            ret = {'error':{'targetErrors':targetErrors}}
+
+        # 比較元の画像にエラーがあった場合
+        if baseErrors is not None:
+            # 戻り値に比較元の画像のエラーを追加
+            if 'error' in ret:
+                ret = {'error':{'targetErrors':targetErrors, 'baseErrors':baseErrors}}
+            else:
+                ret = {'error':{'baseErrors':baseErrors}}
+
+        # いずれかにエラーがあった場合
+        if 'error' in ret:
+            # エラーを返す
+            return  ret
 
         # 関節の角度を求める
         targetAngles = self.calcAngles(targetDatum.poseKeypoints)
         baseAngles = self.calcAngles(baseDatum.poseKeypoints)
 
-        ret = dict()
         ret['score'] = {'sum': 0, 'detail' : {
             # 首
             'neck' : 0,
@@ -72,63 +128,64 @@ class ScoreCalculator:
             ret['score']['detail'][key] = score if score >= 0 else 0
             ret['score']['sum'] += ret['score']['detail'][key]
 
-        # スコア計算ができなかった場合
-        if (False):
-            ret = {
-                # 'error' 比較対象，比較元の画像に関するエラー スコア計算ができなかった場合のみ定義される
-                ## 'error'が定義されていれば，'targetErrors'と'baseErrors'のどちらかは必ず定義される(両方定義されることもある)
-                'error' : {
-                    # 'targetErrors' 比較対象の画像に関するエラー 比較対象の画像に関するエラーがあったときのみ定義される
-                    'targetErrors' : [
-                        '右肩が認識できません', '左膝が認識できません'
-                    ],
-                    # 'baseErrors' 比較元の画像に関するエラー 比較元の画像に関するエラーがあったときのみ定義される
-                    'baseErrors' : [
-                        '複数人写り込んでいます'
-                    ]
-                }
-            }
-
         return ret
 
-    # 未実装
-    # 画像を問題なく骨格推定できるか判定
-    # 引数
-    ## imagePath  画像のパス名
-    ## imageName  画像のファイル名  imagePathが示すディレクトリに配置されている
+    # 画像を問題なく骨格推定できたか判定
+    # 引数 画像の骨格推定の結果 Datum型
     # 戻り値
-    ## このメソッド内の変数retを確認してください
-    def checkImage(self, imagePath, ImageName):
-        if (True) : 
-            ret = {
-                'isFine' : True
-            }
-        else :
-            ret = {
-                'isFine' : False,
-                'errors' : [
-                    '右肩が認識できません'
-                ]
-            }
-        return ret
+    ## エラーなし None
+    ## エラーあり エラーのリスト list(str)
+    def checkDatum(self, datum):
+        # 推定の信用度の閾値(これ以下であれば，推定できなかったとする)
+        threshold = 0.2
 
-    # 未実装
-    # 比較対象の画像にエラーがないか判定
-    # 引数
-    ## targetImageName  比較対象の画像のファイル名  self.targetImagePathが示すディレクトリに配置されている
-    # 戻り値
-    ## checkImage内の変数retを確認してください
-    def checkTarget(self, targetImageName):
-        return self.checkImage(self.targetImagePath, targetImageName)
+        # 推定結果の，各関節の位置を取り出す
+        keypoints = datum.poseKeypoints
 
-    # 未実装
-    # 比較元の画像にエラーがないか判定
-    # 引数
-    ## baseImageName    比較元の画像のファイル名    self.baseImagePathが示すディレクトリに配置されている
-    # 戻り値
-    ## checkImage内の変数retを確認してください
-    def checkBase(self, baseImageName):
-        return self.checkImage(self.baseImagePath, baseImageName)
+        # エラーを格納するリスト 最後まで空であればエラーなし
+        errors = []
+
+        # 以下，エラー判定
+        if keypoints is None or len(keypoints) <= 0:
+            errors.append('人間を検出できませんでした')
+        elif len(keypoints) > 1:
+            errors.append('人間を複数人検出しました')
+        else:
+            if keypoints[0][0][2] < threshold:
+                errors.append('顔の位置を検出できませんでした')
+            if keypoints[0][1][2] < threshold:
+                errors.append('胸の位置を検出できませんでした')
+            if keypoints[0][2][2] < threshold:
+                errors.append('右肩の位置を検出できませんでした')
+            if keypoints[0][3][2] < threshold:
+                errors.append('右肘の位置を検出できませんでした')
+            if keypoints[0][4][2] < threshold:
+                errors.append('右手の位置を検出できませんでした')
+            if keypoints[0][5][2] < threshold:
+                errors.append('左肩の位置を検出できませんでした')
+            if keypoints[0][6][2] < threshold:
+                errors.append('左肘の位置を検出できませんでした')
+            if keypoints[0][7][2] < threshold:
+                errors.append('左手の位置を検出できませんでした')
+            if keypoints[0][8][2] < threshold:
+                errors.append('右腿関節の位置を検出できませんでした')
+            if keypoints[0][9][2] < threshold:
+                errors.append('右膝の位置を検出できませんでした')
+            if keypoints[0][10][2] < threshold:
+                errors.append('右足の位置を検出できませんでした')
+            if keypoints[0][11][2] < threshold:
+                errors.append('左腿関節の位置を検出できませんでした')
+            if keypoints[0][12][2] < threshold:
+                errors.append('左膝の位置を検出できませんでした')
+            if keypoints[0][13][2] < threshold:
+                errors.append('左足の位置を検出できませんでした')
+
+        # エラーが1つ以上存在した場合
+        if len(errors) > 0:
+            # エラーを返す
+            return errors
+
+        return None
     
     # 画像から関節の座標を取得する
     # 引数
@@ -223,6 +280,44 @@ class ScoreCalculator:
 
 if __name__ == '__main__':
     # デバッグ用
+    # 例外:存在しないディレクトを指定
+    #scoreCalculator = ScoreCalculator('test_doggy/', 'test_kitty/')
+
+    # 正常なディレクトリ指定
     scoreCalculator = ScoreCalculator('test_img/', 'test_img/')
-    print(scoreCalculator.getScore('yogaMale.jpg','yogaFemale.jpg')['score'])
+
+    # 例外:存在しないファイルを指定
+    #res = scoreCalculator.getScore('yogaDoggy.jpg', 'yogaKitty.jpg')
+
+    # 例外:txtファイルを指定
+    #res = scoreCalculator.getScore('yoga.txt', 'yogaFemale.jpg')
     
+    # 正常な画像を指定
+    res1 = scoreCalculator.getScore('yogaMale.jpg','yogaFemale.jpg')
+    # エラーありの画像を指定
+    res2 = scoreCalculator.getScore('yogaIrust.jpg','upperBody.jpg')
+
+    def checkResult(result):
+        # 正常に推定できたか判定
+        ## 正常に推定できた場合
+        if 'score' in result:
+            print('エラーなし')
+            print("result['score']['sum']" + str(result['score']['sum']))
+            print("result['score']['detail']" + str(result['score']['detail']))
+        ## エラーがある場合
+        elif 'error' in result:
+            print('エラーあり')
+            print("result['error']" + str(result['error']))
+        else:
+            print('プログラムにバグがあります')
+
+        return None
+
+    print('---')
+    print('res1')
+    checkResult(res1)
+    print('---')
+    print('res2')
+    checkResult(res2)
+    print('---')
+
