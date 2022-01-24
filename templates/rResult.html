@@ -32,45 +32,55 @@
             </div>
             <div class="box6">
                 <br><br><br>
-                <input type="button" class="button" value="ランキング" onclick="location.href='./ranking'">
-                <input type="button" class="button" value="再挑戦" onclick="location.href='./random'">
-                <input type="button" class="button" value="終わる" onclick="location.href='./home'">
+                <input type="button" class="button" value="ランキング" onclick="location.href='/ranking'">
+                <input type="button" class="button" value="再挑戦" onclick="location.href='/random'">
+                <input type="button" class="button" value="終わる" onclick="location.href='/home'">
             </div>
         </div>
 
         <script>
+            var img_model_souce1 = "../static/dummy.jpg";
             var image = document.getElementById('img_model1');
-            image.src = "../static/dummy.jpg"
+            image.src = img_model_souce1;
 
+            var img_model_souce2 = "../static/dummy.jpg";
             image = document.getElementById('img_model2');
-            image.src = "../static/dummy.jpg"
+            image.src = img_model_souce2;
 
+            var img_model_souce3 = "../static/dummy.jpg";
             image = document.getElementById('img_model3');
-            image.src = "../static/dummy.jpg"
+            image.src = img_model_souce3;
 
+            var img_result_souce1 = "../static/dummy.jpg";
             image = document.getElementById('img_result1');
-            image.src = "../static/dummy.jpg"
+            image.src = img_result_souce1;
 
+            var img_result_souce2 = "../static/dummy.jpg";
             image = document.getElementById('img_result2');
-            image.src = "../static/dummy.jpg"
+            image.src = img_result_souce2;
 
+            var img_result_souce3 = "../static/dummy.jpg";
             image = document.getElementById('img_result3');
-            image.src = "../static/dummy.jpg"
+            image.src = img_result_souce3;
 
+            var score1 = 20;
             text = document.getElementById('score1');
-            text.innerText = "スコア　1." + "〇〇" + "点";
+            text.innerText = "スコア　1." + score1 + "点";
 
+            var score2 = 46;
             text = document.getElementById('score2');
-            text.innerText = "　　　　2." + "〇〇" + "点";
+            text.innerText = "　　　　2." + score2 + "点";
 
+            var score3 = 31;
             text = document.getElementById('score3');
-            text.innerText = "　　　　3." + "〇〇" + "点";
+            text.innerText = "　　　　3." + score3 + "点";
 
             text = document.getElementById('score4');
-            text.innerText = "　　　総合." + "〇〇" + "点";
+            text.innerText = "　　　総合." + (score1+score2+score3) + "点";
 
+            var ranking = 2;
             text = document.getElementById('ranking');
-            text.innerText = "ランキング" + "〇" + "位";
+            text.innerText = "ランキング" + ranking + "位";
         </script>
     </body>
 </html>
