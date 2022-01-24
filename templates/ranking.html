@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="../static/ranking.css">
     </head>
     <body>
-        <input type="button" value="戻る" onclick="location.href='./home'">
+        <input type="button" value="戻る" onclick="location.href='/home'">
         <h1>ランキング</h1>
         <h3>練習モード</h3>
         <table id="single" border="1">
@@ -35,7 +35,54 @@
           tr.appendChild(th);
 
           table.appendChild(tr);
+
+          var data = [ //テスト用ダミーデータ
+            {
+              "name":"SUZUKI",
+              "score":"90"
+            },
+            {
+              "name":"田中",
+              "score":"78"
+            },
+            {
+              "name":"kato",
+              "score":"55"
+            },
+            {
+              "name":"3110",
+              "score":"37"
+            },
+            {
+              "name":"_・_・_",
+              "score":"1"
+            }
+          ];
+
+          console.log(data);
+
+          var cnt = 0;
+          data.forEach(elm =>{ //配列から一つずつ取り出す
+            cnt++;
+
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = cnt;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = elm.name;
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = elm.score;
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          });
           
+          /* ダミーデータの表示
           for (var step = 0; step < 5; step++) {
             tr = document.createElement('tr');
             // 順位
@@ -53,6 +100,7 @@
 
             table.appendChild(tr);
           }
+          */
 
           //ランダムモードのスコア表示
           var table = document.getElementById('random');
@@ -73,6 +121,53 @@
 
           table.appendChild(tr);
 
+          var data = [ //テスト用ダミーデータ
+            {
+              "name":"AI",
+              "score":"100"
+            },
+            {
+              "name":"open",
+              "score":"89"
+            },
+            {
+              "name":"🍣🍳🥐",
+              "score":"40"
+            },
+            {
+              "name":"",
+              "score":"24"
+            },
+            {
+              "name":"玉葱",
+              "score":"0"
+            }
+          ];
+
+          console.log(data);
+
+          var cnt = 0;
+          data.forEach(elm =>{ //配列から一つずつ取り出す
+            cnt++;
+
+            tr = document.createElement('tr');
+            // 順位
+            th = document.createElement('th');
+            th.innerText = cnt;
+            tr.appendChild(th);
+            // 名前
+            th = document.createElement('th');
+            th.innerText = elm.name;
+            tr.appendChild(th);
+            // スコア
+            th = document.createElement('th');
+            th.innerText = elm.score;
+            tr.appendChild(th);
+
+            table.appendChild(tr);
+          });
+
+          /*
           for (var step = 0; step < 5; step++) {
             tr = document.createElement('tr');
             // 順位
@@ -90,6 +185,7 @@
 
             table.appendChild(tr);
           }
+          */
         </script>
     </body>
 </html>

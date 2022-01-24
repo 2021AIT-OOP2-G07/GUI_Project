@@ -17,24 +17,28 @@
             <div class="box4"><br><h4>手本</h4></div>
             <div class="box5"><br><h4>結果</h4></div>
             <div class="box6">
-                <input type="button" class="button" value="ランキング" onclick="location.href='./ranking'">
-                <input type="button" class="button" value="再挑戦" onclick="location.href='./practice'">
-                <input type="button" class="button" value="終わる" onclick="location.href='./home'">
+                <input type="button" class="button" value="ランキング" onclick="location.href='/ranking'">
+                <input type="button" class="button" value="再挑戦" onclick="location.href='/practice'">
+                <input type="button" class="button" value="終わる" onclick="location.href='/home'">
             </div>
         </div>
 
         <script>
+            var img_model_souce = "../static/dummy.jpg";
             var image = document.getElementById('img_model');
-            image.src = "../static/dummy.jpg"
+            image.src = img_model_souce;
 
+            var img_result_souce = "../static/dummy.jpg";
             image = document.getElementById('img_result');
-            image.src = "../static/dummy.jpg"
+            image.src = img_result_souce;
 
+            var score = 30;
             var text = document.getElementById('score');
-            text.innerText = "スコア" + "〇〇" + "点";
+            text.innerText = "スコア " + score + "点";
 
+            var ranking = 3;
             text = document.getElementById('ranking');
-            text.innerText = "ランキング" + "〇" + "位";
+            text.innerText = "ランキング " + ranking + "位";
         </script>
     </body>
 </html>

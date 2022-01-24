@@ -1,3 +1,12 @@
 .center{
     text-align: center;
 }
+.button{
+    width: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #68779a;
+    background: #cbe8fa;
+    cursor: pointer;
+    margin:0 auto;/*中央に配置*/
+}
