@@ -1,6 +1,6 @@
 # GUI_Project
 
-Ubisoftによって開発・発売されている"Just Dance"のヨガバージョンのようなゲーム。
+Ubisoftによって開発・発売されている"Just Dance"のヨガバージョンのようなアプリ
 
 ## Require
 - Flask==2.0.2
