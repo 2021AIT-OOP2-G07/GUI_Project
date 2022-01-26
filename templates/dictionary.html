@@ -10,9 +10,8 @@
   </script>
   </head>
 <body>
-    <form action="/home" method="POST">
-    <button type="submit">戻る</button>
-    <h1>ポーズ図鑑</h1>
+  <input type="button" value="戻る" onclick="location.href='/'">
+  <h1>ポーズ図鑑</h1>
     <table>
     <tr>
       <td><a href="{{url_for('static', filename='3.jpg') }}" data-lightbox="group"><img src="{{ url_for('static', filename='3.jpg') }}" alt="" class="img" ></a>
