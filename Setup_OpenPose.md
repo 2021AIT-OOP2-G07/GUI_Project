@@ -8,5 +8,7 @@ https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/install
 https://qiita.com/westtail/items/06f11bbc9c73b186badf
 
 ScoreSalculatorでは以下のディレクトリ構成を想定しています
-GitHub  -   GUI_PROJECT -   ScoreCalculator.py
-        -   openpose
+<p>
+GitHub  -   GUI_PROJECT -   ScoreCalculator.py<br>
+&nbsp;　　　　-   openpose
+
