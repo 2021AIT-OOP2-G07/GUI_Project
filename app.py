@@ -68,7 +68,7 @@ def P_cnf():
 # score：スコア
 # ranking：このスコアのランキング
 def ResultP():
-    baseImage = request.form.get("basepng", None)
+    baseImage = request.form.get("image", None)
     name = request.form.get("name", None)
     SC = ScoreCalculator()
     ret = SC.getScore('targetImage', "baaseImage")
