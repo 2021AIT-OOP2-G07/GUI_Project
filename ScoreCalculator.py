@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from numpy import linalg as LA
 import os
+import warnings
 
 class ScoreCalculator:
     # コンストラクタ 比較対象・比較元の画像のディレクトリのパスを設定 ライブラリのインポート
@@ -124,7 +125,18 @@ class ScoreCalculator:
         }}
         
         for key in ret['score']['detail'].keys():
-            score = 100 - round(abs(targetAngles[key] - baseAngles[key]))
+            score = 100
+            if targetAngles[key] >= 0 and baseAngles[key] >= 0:
+                score -= round(abs(targetAngles[key] - baseAngles[key]))
+            elif targetAngles[key] >= 0 and baseAngles[key] < 0:
+                score -= 180 - round(abs((targetAngles[key] - 180) - baseAngles[key]))
+            elif targetAngles[key] < 0 and baseAngles[key] >= 0:
+                score -= 180 - round(abs((baseAngles[key] - 180) - targetAngles[key]))
+            elif targetAngles[key] < 0 and baseAngles[key] < 0:
+                score -= round(abs(abs(targetAngles[key]) - abs(baseAngles[key])))
+            else:
+                print('Something about score calculation is wrong!')
+
             ret['score']['detail'][key] = score if score >= 0 else 0
             ret['score']['sum'] += ret['score']['detail'][key]
 
@@ -270,11 +282,99 @@ class ScoreCalculator:
         return angle
 
     # 2つのベクトルから角度を求める
+    # v1が真上に向かっているとみて，v2が右側に向かっていればプラス，左側に向かっていればマイナスになる
     def vectorToAngle(self, v1, v2):
+        # ベクトルのなす角を求める
         i = np.inner(v1, v2)
         n = LA.norm(v1) * LA.norm(v2)
         c = i / n
         a = np.rad2deg(np.arccos(np.clip(c, -1.0, 1.0)))
+
+        # 2ベクトルを直線と見たときの傾きを求める
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            try:
+                v1Slope = v1[1]/v1[0]
+            except ZeroDivisionError:
+                v1Slope = float('inf') if v1[1] > 0 else -float('inf')
+            
+            try :
+                v2Slope = v2[1]/v2[0]
+            except ZeroDivisionError:
+                v2Slope = float('inf') if v2[1] > 0 else -float('inf')
+
+        # 角度を，v1に対してv2が右を向いているならばプラス，左を向いているならばマイナスとする
+        if v1[0] >= 0 and v1[1] >= 0:
+            if v2[0] >= 0 and v2[1] >= 0:
+                if v1Slope > v2Slope:
+                    a = a
+                else:
+                    a = -a
+            elif v2[0] >= 0 and v2[1] < 0:
+                a = a
+            elif v2[0] < 0 and v2[1] >= 0:
+                a = -a
+            elif v2[0] < 0 and v2[0] < 0:
+                if v1Slope > v2Slope:
+                    a = -a
+                else:
+                    a = a
+            else:
+                print('Something about v is wrong!')
+        elif v1[0] >= 0 and v1[1] < 0:
+            if v2[0] >= 0 and v2[1] >= 0:
+                a = -a
+            elif v2[0] >= 0 and v2[1] < 0:
+                if v1Slope > v2Slope:
+                    a = a
+                else:
+                    a = -a
+            elif v2[0] < 0 and v2[1] >= 0:
+                if v1Slope > v2Slope:
+                    a = -a
+                else:
+                    a = a
+            elif v2[0] < 0 and v2[0] < 0:
+                a = a
+            else:
+                print('Something about v is wrong!')
+        elif v1[0] < 0 and v1[1] >= 0:
+            if v2[0] >= 0 and v2[1] >= 0:
+                a = a
+            elif v2[0] >= 0 and v2[1] < 0:
+                if v1Slope > v2Slope:
+                    a = -a
+                else:
+                    a = a
+            elif v2[0] < 0 and v2[1] >= 0:
+                if v1Slope > v2Slope:
+                    a = a
+                else:
+                    a = -a
+            elif v2[0] < 0 and v2[0] < 0:
+                a = -a
+            else:
+                print('Something about v is wrong!')
+        elif v1[0] < 0 and v1[1] < 0:
+            if v2[0] >= 0 and v2[1] >= 0:
+                if v1Slope > v2Slope:
+                    a = -a
+                else:
+                    a = a
+            elif v2[0] >= 0 and v2[1] < 0:
+                a = -a
+            elif v2[0] < 0 and v2[1] >= 0:
+                a = a
+            elif v2[0] < 0 and v2[0] < 0:
+                if v1Slope > v2Slope:
+                    a = a
+                else:
+                    a = -a
+            else:
+                print('Something about v is wrong!')
+        else:
+            print('Something about u is wrong!')
+
         return a
 
 
@@ -295,7 +395,7 @@ if __name__ == '__main__':
     # 正常な画像を指定
     res1 = scoreCalculator.getScore('yogaMale.jpg','yogaFemale.jpg')
     # エラーありの画像を指定
-    res2 = scoreCalculator.getScore('yogaIrust.jpg','upperBody.jpg')
+    #res2 = scoreCalculator.getScore('yogaIrust.jpg','upperBody.jpg')
 
     def checkResult(result):
         # 正常に推定できたか判定
@@ -317,7 +417,7 @@ if __name__ == '__main__':
     print('res1')
     checkResult(res1)
     print('---')
-    print('res2')
-    checkResult(res2)
+    #print('res2')
+    #checkResult(res2)
     print('---')
 
