@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 import imp
 from flask import Flask, request, render_template
-from datetime import datetime
 from ScoreCalculator import ScoreCalculator
 from pymongo import MongoClient
 from DetaBase import Mdb
+from flask import Flask, request, render_template, url_for
+from flask import url_for, \
+    abort, render_template, flash
+from flask import Flask, request, url_for, \
+    abort, render_template, flash
+from werkzeug.utils import secure_filename
+
+import os
+
 
 app = Flask(__name__)
+UPLOAD_FOLDER = './static/image/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 # 1. ゲームトップ
 
 
@@ -57,7 +68,6 @@ def P_cnf():
 # score：スコア
 # ranking：このスコアのランキング
 def ResultP():
-    targetImage = request.form.get("targetpng", None)
     baseImage = request.form.get("basepng", None)
     name = request.form.get("name", None)
     SC = ScoreCalculator()
@@ -65,8 +75,20 @@ def ResultP():
     score = ret['score']['sum']
     Mdb.P_reg(name, score)
     ranking = Mdb.P_result(score)
+    if request.method == 'POST':
+        # ファイルを読み込む
+        img_file = request.files['img_file']
+
+        # ファイル名を取得する
+        filename = secure_filename(img_file.filename)
+
+        # 画像のアップロード先URLを生成する
+        img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        # 画像をアップロード先に保存する
+        img_file.save(img_url)
     return render_template('pResult.html',
-                           targetImage=targetImage,
+                           targetImage=img_url,
                            baseImage=baseImage,
                            name=name,
                            score=score,
@@ -105,16 +127,25 @@ def ResultR():
                            score=score,
                            ranking=ranking)
 
+
 # ランキング画面
 
 #  practice_ranking = list型の配列
-
 
 @app.route('/ranking')
 def Ranking():
     practice_ranking = Mdb.P_ranking()
     return render_template('ranking.html',
                            practice_ranking=practice_ranking)
+
+# 画像アップロード画面
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+
+    # 画像をWEBページに表示する
+    return render_template('Presult.html', result_img=img_url)
 
 
 if __name__ == '__main__':
