@@ -12,10 +12,12 @@
         </a>
     </button>
     <div class="center">
-        <label>名前
-            <br>
-            <input type="text" name="username">
-        </label>
+        <form action="/select/practice" method="POST">
+            <p class="name_input">
+              <label for="your_name"> 名前</label>
+              <input type="text" id="your_name" name="name" />
+            </p>
+        </form>
         <input type="submit" value="決定">
         <p>好きなモードを選ぼう</p>
         <div class="button">
