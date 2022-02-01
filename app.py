@@ -37,7 +37,7 @@ def Select():
 
 @app.route('/select/practice', methods=["POST"])
 def Practice():
-    return render_template('practice.html')
+    return render_template('practice_mode.html')
 
 # ランダムモードトップ画面
 
@@ -54,11 +54,6 @@ def Dictionary():
     return render_template('dictionary.html')
 
 # 練習モードリザルト画面
-
-
-@app.route('/select/practice/confirm', methods=["POST"])
-def P_cnf():
-    return render_template('prac-confirm.html')
 
 
 @app.route('/select/practice/pResult', methods=["POST"])
