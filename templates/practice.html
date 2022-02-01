@@ -6,11 +6,7 @@
     <title>practice</title>
     <link rel="stylesheet" type="text/css" href="../static/practice.css" />
   </head>
-  <body
-    action="{{ url_for('Upload') }}"
-    method="post"
-    enctype="multipart/form-data"
-  >
+  <body>
     <ol>
       <button><a href="/select">戻る</a></button>
     </ol>
@@ -26,6 +22,10 @@
       method="post"
       enctype="multipart/form-data"
     >
+      <p class="name_input">
+        <label for="your_name"> 名前</label>
+        <input type="text" id="your_name" name="name" />
+      </p>
       <table>
         <tr>
           <td>
