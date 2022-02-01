@@ -1,47 +1,120 @@
 <!--ポーズ選択画面-->
 <!DOCTYPE html>
-<html lang = "ja">
-<head>
-    <meta charset="utf-8">
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
     <title>practice</title>
-    <link rel="stylesheet" type="text/css" href="../static/practice.css">
-</head>
-<body>
-
-  <ol>
-    <button><a href="/select">戻る</a></button>
-  </ol>  
+    <link rel="stylesheet" type="text/css" href="../static/practice.css" />
+  </head>
+  <body
+    action="{{ url_for('Upload') }}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <ol>
+      <button><a href="/select">戻る</a></button>
+    </ol>
     <!--タイトル-->
     <h1 id="練習モード">練習モード</h1>
-    
+
     <h2 id="ポーズを選ぼう">ポーズを選ぼう</h2>
 
     <!--ここに、ヨガ図鑑のコピペして説明文を省いた状態のものをおく-->
     <!--画像クリックしても飛べるようにしたいけど、-->
-    <table>
+    <form
+      action="{{ url_for('ResultP') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <table>
         <tr>
-          <td><img src="../static/test1.jpg" alt="cat" title="cat1" id="photo" width="200" height="150"></td>
-          <td><img src="../static/test2.jpg" alt="cat" title="cat2" id="photo" width="200" height="150"></td>
-          <td><img src="../static/test3.jpg" alt="cat" title="cat3" id="photo" width="200" height="150"></td></tr>
-          <tr><td><img src="../static/test4.jpg" alt="cat" title="cat4" id="photo" width="200" height="150"></td>
-          <td><img src="../static/test5.jpg" alt="cat" title="cat5" id="photo" width="200" height="150"></td>
-          <td><img src="../static/test6.jpg" alt="cat" title="cat6" id="photo" width="200" height="150"></td>
-          </tr>
-        <tr>
-            <!--ここに、選択ボタン？つける-->
-            <td><button>a</button></td>
-            <td><button>a</button></td>
-            <td><button>a</button></td>
-            <tr><td><button>a</button></td>
-            <td><button>a</button></td>
-            <td><button>a</button></td>
-          </tr>
+          <td>
+            <input
+              id="image_a"
+              type="radio"
+              value="../static/test1.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_a"
+              ><img src="../static/test1.jpg" with="100" height="100"
+            /></label>
+          </td>
+          <td>
+            <input
+              id="image_b"
+              type="radio"
+              value="../static/test2.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_b"
+              ><img src="../static/test2.jpg" with="100" height="100"
+            /></label>
+          </td>
+          <td>
+            <input
+              id="image_c"
+              type="radio"
+              value="../static/test3.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_c"
+              ><img src="../static/test3.jpg" with="100" height="100"
+            /></label>
+          </td>
+          <td>
+            <input
+              id="image_d"
+              type="radio"
+              value="../static/test4.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_d"
+              ><img src="../static/test4.jpg" with="100" height="100"
+            /></label>
+          </td>
+          <td>
+            <input
+              id="image_e"
+              type="radio"
+              value="../static/test5.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_e"
+              ><img src="../static/test5.jpg" with="100" height="100"
+            /></label>
+          </td>
+          <td>
+            <input
+              id="image_f"
+              type="radio"
+              value="../static/test6.jpg"
+              name="image"
+            />
+          </td>
+          <td>
+            <label for="image_f"
+              ><img src="../static/test6.jpg" with="100" height="100"
+            /></label>
+          </td>
         </tr>
       </table>
-
       <ol>
-        <button><a href="/prac-count">挑戦!</a></button>
-      </ol>  
-      
-    </body>
+        <dl>
+          <dt>アップロードする画像を選択してください:</dt>
+          <dd><input type="file" id="img_file" name="img_file" /></dd>
+          <dd><input type="submit" value="挑戦!" /></dd>
+        </dl>
+      </ol>
+    </form>
+  </body>
 </html>
