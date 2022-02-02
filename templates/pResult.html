@@ -24,21 +24,25 @@
         </div>
 
         <script>
-            var img_model_souce = "../static/dummy.jpg";
+            //var img_model_souce = "../static/dummy.jpg";
+            var img_model_souce = {{ targetImage | tojson }};
             var image = document.getElementById('img_model');
             image.src = img_model_souce;
 
-            var img_result_souce = "../static/dummy.jpg";
+            //var img_result_souce = "../static/dummy.jpg";
+            var img_result_souce = {{ baseImage | tojson }};
             image = document.getElementById('img_result');
             image.src = img_result_souce;
 
-            var score = 30;
+            //var score = 30;
+            var scorepractice = {{ score | tojson }};
             var text = document.getElementById('score');
-            text.innerText = "スコア " + score + "点";
+            text.innerText = "スコア " + scorepractice + "点";
 
-            var ranking = 3;
+            //var ranking = 3;
+            var rankingpractice = {{ ranking | tojson }};
             text = document.getElementById('ranking');
-            text.innerText = "ランキング " + ranking + "位";
+            text.innerText = "ランキング " + rankingpractice + "位";
         </script>
     </body>
 </html>
