@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>select</title>
+    <link
+      rel="stylesheet"
+      media="all"
+      href="../static/select.css"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <button>
+      <a href="/"> 戻る </a>
+    </button>
+    <div class="center">
+      <p>好きなモードを選ぼう</p>
+      <form action="/select/practice" method="POST">
+        <div class="button">
+          <button type="submit">練習モード</button>
+        </div>
+        <p>頑張る</p>
+      </form>
+      <form action="/select/random" method="POST">
+        <div class="button">
+          <button type="submit">ランダムモード</button>
+        </div>
+        <p>気合いで</p>
+      </form>
+    </div>
+  </body>
+</html>

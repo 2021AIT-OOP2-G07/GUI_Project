@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+		<title>結果発表</title>
+        <link rel="stylesheet" type="text/css" href="../static/pResult.css">
+    </head>
+    <body>
+        <h1>結果発表</h1>
+        <div class="wrapper">
+            <div class="box1"><img class="image" id="img_model"></div>
+            <div class="box2"><img class="image" id="img_result"></div>
+            <div class="box3">
+                <h3 id="score"></h3>
+                <h3 id="ranking"></h3>
+            </div>
+            <div class="box4"><br><h4>手本</h4></div>
+            <div class="box5"><br><h4>結果</h4></div>
+            <div class="box6">
+                <input type="button" class="button" value="ランキング" onclick="location.href='/ranking'">
+                <input type="button" class="button" value="再挑戦" onclick="location.href='/practice'">
+                <input type="button" class="button" value="終わる" onclick="location.href='/'">
+            </div>
+        </div>
+
+        <script>
+            //var img_model_souce = "../static/dummy.jpg";
+            var img_model_souce = {{ targetImage | tojson }};
+            img_model_souce = "{{ url_for('static', filename='" + img_model_souce + "') }}";
+            console.log(img_model_souce);
+            var image = document.getElementById('img_model');
+            image.src = img_model_souce;
+
+            //var img_result_souce = "../static/dummy.jpg";
+            var img_result_souce = {{ baseImage | tojson }};
+            img_result_souce = "{{ url_for('static', filename='" + img_result_souce + "') }}";
+            console.log(img_result_souce);
+            image = document.getElementById('img_result');
+            image.src = img_result_souce;
+
+            //var score = 30;
+            var scorepractice = {{ score | tojson }};
+            var text = document.getElementById('score');
+            text.innerText = "スコア " + scorepractice + "点";
+
+            //var ranking = 3;
+            var rankingpractice = {{ ranking | tojson }};
+            text = document.getElementById('ranking');
+            text.innerText = "ランキング " + rankingpractice + "位";
+        </script>
+    </body>
+</html>

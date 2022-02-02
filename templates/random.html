@@ -1,0 +1,36 @@
+<!--3つのポーズの表示画面-->
+<!DOCTYPE html>
+<html lang = "ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>random</title>
+    <link rel="stylesheet" type="text/css" href="../static/random.css">
+</head>
+<body>
+    <!--ホームに戻るボタン-->
+    <ol>
+        <button><a href="/select">戻る</a></button>
+    </ol>  
+    
+    <!--タイトル-->
+    <h1 id="ランダムモード">ランダムモード</h1>
+    <!--ランダムに写真を3つ表示させるプログラムを書く-->
+    <script type="text/javascript">
+        var imglist = new Array(
+            "static/test1.jpg",
+            "static/test2.jpg",
+            "static/test3.jpg",
+            "static/test4.jpg",
+            "static/test5.jpg",
+            "static/test6.jpg"
+        );
+        var selectnum = Math.floor(Math.random() * imglist.length);
+        var output = "<img src=" + imglist[selectnum] + ">";
+        document.write(output);
+    </script>
+    
+        <!-- これをボタンにしてここをクリックしたらran-count1.htmlへ飛ぶように-->
+        <button type="submit" formaction="../static/ran-count1.html">挑戦!!</button>
+</body>
+</html>
