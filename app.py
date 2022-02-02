@@ -77,7 +77,7 @@ def ResultP():
     targetImage = filename
     name = request.form.get("name", None)
     SC = ScoreCalculator()
-    ret = SC.getScore("static/image" + targetImage, baseImage)
+    ret = SC.getScore("static/image/" + targetImage, baseImage)
     score = ret['score']['sum']
     Mdb.P_reg(name, score)
     ranking = Mdb.P_result(score)
