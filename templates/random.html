@@ -16,21 +16,71 @@
     <!--タイトル-->
     <h1 id="ランダムモード">ランダムモード</h1>
     <!--ランダムに写真を3つ表示させるプログラムを書く-->
-    <script type="text/javascript">
-        var imglist = new Array(
-            "static/test1.jpg",
-            "static/test2.jpg",
-            "static/test3.jpg",
-            "static/test4.jpg",
-            "static/test5.jpg",
-            "static/test6.jpg"
-        );
-        var selectnum = Math.floor(Math.random() * imglist.length);
-        var output = "<img src=" + imglist[selectnum] + ">";
-        document.write(output);
-    </script>
-    
-        <!-- これをボタンにしてここをクリックしたらran-count1.htmlへ飛ぶように-->
-        <button type="submit" formaction="../static/ran-count1.html">挑戦!!</button>
+    <!--重複無くランダムに3つ表示させるため写真を３区分に分けて書いた-->
+    <form
+      action="{{ url_for('ResultP') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <p class="name_input">
+        <label for="your_name"> 名前</label>
+        <input type="text" id="your_name" name="name" />
+      </p>
+      <table>
+        <tr>
+          <td>
+            <p class="photo">
+            <label for="image_a">
+            <script type="text/javascript">
+                var imglist = new Array(
+                   "../static/yoga01.jpg",
+                   "../static/yoga02.jpg",
+                   "../static/yoga03.jpg" 
+                   );
+                var selectnum = Math.floor(Math.random() * imglist.length);
+                var output = "<img src=" + imglist[selectnum] + ">";
+                document.write(output);
+             </script>
+             </label>
+            </p>
+          </td>
+            <td>
+            <label for="image_a">
+            <script type="text/javascript">
+                var imglist = new Array(
+                   "../static/yoga04.jpg",
+                   "../static/yoga05.jpg",
+                   "../static/yoga06.jpg", 
+                   );
+                var selectnum = Math.floor(Math.random() * imglist.length);
+                var output = "<img src=" + imglist[selectnum] + ">";
+                document.write(output);
+             </script>
+             </label>
+             <td >
+                <label for="image_a">
+                <script type="text/javascript">
+                    var imglist = new Array(
+                       "../static/yoga07.jpg",
+                       "../static/yoga08.jpg", 
+                       "../static/yoga09.jpg" 
+                       );
+                    var selectnum = Math.floor(Math.random() * imglist.length);
+                    var output = "<img src=" + imglist[selectnum] + ">";
+                    document.write(output);
+                 </script>
+                 </label>
+              </td>
+          </td>
+        </tr>
+      </table>
+      <ol>
+        <dl>
+          <dt>アップロードする画像を選択してください:</dt>
+          <dd><input type="file" id="img_file" name="img_file" /></dd>
+          <dd><input type="submit" value="挑戦!" /></dd>
+        </dl>
+      </ol>
+    </form>
 </body>
 </html>
