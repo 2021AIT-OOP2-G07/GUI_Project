@@ -1,3 +1,4 @@
+# coding:utf-8
 import cv2
 import sys
 import numpy as np
@@ -55,7 +56,7 @@ class ScoreCalculator:
             raise ValueError('targetImage does not exist: targetPath is ' + str(targetPath))
         if not os.path.isfile(targetPath):
             print('比較元のファイルが存在しません')
-            raise ValueError('baseImageDirPath does not exist: basePath is ' + str(basePath))
+            raise ValueError('baseImage does not exist: basePath is ' + str(basePath))
 
         # ファイルが画像か確認(拡張子のみで判断)
         root, targetExtention = os.path.splitext(targetPath)
