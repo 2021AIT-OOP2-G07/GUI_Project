@@ -36,6 +36,7 @@
 
           table.appendChild(tr);
 
+          /*
           var data = [ //テスト用ダミーデータ
             {
               "name":"SUZUKI",
@@ -58,6 +59,9 @@
               "score":"1"
             }
           ];
+          */
+
+          var data = {{ practice_ranking | tojson }};
 
           console.log(data);
 
