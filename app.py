@@ -63,14 +63,6 @@ def Dictionary():
 # score：スコア
 # ranking：このスコアのランキング
 def ResultP():
-    baseImage = request.form.get("image", None)
-    name = request.form.get("name", None)
-    # SC = ScoreCalculator()
-    # ret = SC.getScore('targetImage', "baaseImage")
-    # score = ret['score']['sum']
-    # Mdb.P_reg(name, score)
-    # ranking = Mdb.P_result(score)
-    # ファイルを読み込む
     img_file = request.files['img_file']
 
     # ファイル名を取得する
@@ -81,12 +73,22 @@ def ResultP():
 
     # 画像をアップロード先に保存する
     img_file.save(img_url)
+
+    baseImage = request.form.get("image", None)
+    targetImage = img_url
+    name = request.form.get("name", None)
+    SC = ScoreCalculator()
+    ret = SC.getScore('targetImage', "baaseImage")
+    score = ret['score']['sum']
+    Mdb.P_reg(name, score)
+    ranking = Mdb.P_result(score)
+
     return render_template('pResult.html',
-                           targetImage=img_url,
+                           targetImage=targetImage,
                            baseImage=baseImage,
                            name=name,
-                           #    score=score,
-                           #    ranking=ranking
+                           score=score,
+                           ranking=ranking
                            )
 
 # ランダムモードリザルト画面
