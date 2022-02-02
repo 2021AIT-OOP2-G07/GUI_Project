@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
 		<title>結果発表</title>
-        <link rel="stylesheet" type="text/css" href="../static/pResult.css">
+        <link rel="stylesheet" type="text/css" href="../../static/pResult.css">
     </head>
     <body>
         <h1>結果発表</h1>
@@ -26,11 +26,17 @@
         <script>
             //var img_model_souce = "../static/dummy.jpg";
             var img_model_souce = {{ targetImage | tojson }};
+            console.log(img_model_souce);
+            img_model_souce = "../../static/" + img_model_souce;
+            console.log(img_model_souce);
             var image = document.getElementById('img_model');
             image.src = img_model_souce;
 
             //var img_result_souce = "../static/dummy.jpg";
             var img_result_souce = {{ baseImage | tojson }};
+            console.log(img_result_souce);
+            img_result_souce = "../../" + img_result_souce;
+            console.log(img_result_souce);
             image = document.getElementById('img_result');
             image.src = img_result_souce;
 
