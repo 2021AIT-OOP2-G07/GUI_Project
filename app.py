@@ -37,7 +37,7 @@ def Select():
 
 @app.route('/select/practice', methods=["POST"])
 def Practice():
-    return render_template('practice_mode.html')
+    return render_template('practice.html')
 
 # ランダムモードトップ画面
 
@@ -63,27 +63,28 @@ def Dictionary():
 # score：スコア
 # ranking：このスコアのランキング
 def ResultP():
+    img_file = request.files['img_file']
+
+    # ファイル名を取得する
+    filename = secure_filename(img_file.filename)
+
+    # 画像のアップロード先URLを生成する
+    img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # 画像をアップロード先に保存する
+    img_file.save(img_url)
+
     baseImage = request.form.get("image", None)
+    targetImage = img_url
     name = request.form.get("name", None)
     SC = ScoreCalculator()
     ret = SC.getScore('targetImage', "baaseImage")
     score = ret['score']['sum']
     Mdb.P_reg(name, score)
     ranking = Mdb.P_result(score)
-    if request.method == 'POST':
-        # ファイルを読み込む
-        img_file = request.files['img_file']
 
-        # ファイル名を取得する
-        filename = secure_filename(img_file.filename)
-
-        # 画像のアップロード先URLを生成する
-        img_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-        # 画像をアップロード先に保存する
-        img_file.save(img_url)
     return render_template('pResult.html',
-                           targetImage=img_url,
+                           targetImage=targetImage,
                            baseImage=baseImage,
                            name=name,
                            score=score,
